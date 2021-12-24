@@ -18,12 +18,12 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: php_tour
+      MYSQL_DATABASE: store
     ports:
       - "3306:3306"
     volumes:
       - db:/var/lib/mysql
-      - ./php_tour.sql:/docker-entrypoint-intdb.d/php_tour.sql
+      - ./store.sql:/docker-entrypoint-intdb.d/store.sql
     networks:
       - backend
 
