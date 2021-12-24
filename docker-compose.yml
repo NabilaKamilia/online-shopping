@@ -1,34 +1,14 @@
 version: '3.8'
 services:
   php-apache-environment:
-    image: nabilakamilia/php
+    image: nabilakamilia/php-uas
     container_name: php-apache
-    depends_on:
-      - db
     volumes:
       - ./php/src:/var/www/html/
     ports:
-      - 80:80
+      - 8000:80
     networks:
       - backend
-  
-  db: 
-    container_name: db
-    image: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: store
-    ports:
-      - "3306:3306"
-    volumes:
-      - db:/var/lib/mysql
-      - ./store.sql:/docker-entrypoint-intdb.d/store.sql
-    networks:
-      - backend
-
-volumes:
-  db:
 
 networks:
   backend:
