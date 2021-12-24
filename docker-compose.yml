@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  php-apache-environment:
+    image: nabilakamilia/php
+    container_name: php-apache
+    depends_on:
+      - db
+    volumes:
+      - ./php/src:/var/www/html/
+    ports:
+      - 80:80
+    networks:
+      - backend
+  
+  db: 
+    container_name: db
+    image: mysql
+    restar: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: php_tour
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+      - ./php_tour.sql:/docker-entrypoint-intdb.d/php_tour.sql
+    networks:
+      - backend
+
+volumes:
+  db:
+
+networks:
+  backend:
+    name: backend-network
+    ipan:
+      driver: default
+      config:
+        - subnet: 172.1.0.0/24
